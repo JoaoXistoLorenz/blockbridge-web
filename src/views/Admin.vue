@@ -167,7 +167,6 @@
 // criar crud plataforma
 // refatorar codigo (arrumar menu)
 // responsividade
-// github
 // tvl, preço se tiver token, video
 </script>
 
