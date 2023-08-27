@@ -1,0 +1,145 @@
+.menu-mobile {
+  display: none;
+}
+
+@media (max-width: 1199px) {
+  #menu-superior {
+    display: none;
+  }
+  .menu-mobile {
+    display: block;
+    width: calc(100% - 220px);
+    text-align: right;
+    margin-right: 30px;
+    font-size: 1.2rem;
+    margin-top: 35px;
+  }
+
+  /* .card-plataforma {
+    min-height: 400px;
+  }
+  
+  .card-plataforma-right {
+    min-height: 400px;
+  } */
+}
+
+@media (max-width: 800px) {
+  .scalability-row {
+    margin-top: 25px;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: right;
+  }
+
+  .filters-row {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+  }
+
+  .filters-row-dex {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .cards-row {
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+  }
+
+  .titulo-principal {
+    padding-left: 14px;
+  }
+
+  .notfound-col {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+}
+
+.small-filtro {
+  display: none;
+}
+
+@media (max-width: 691px) {
+  .titulo-principal {
+    padding-left: 14px;
+    font-size: 2rem;
+    padding-top: 10px;
+  }
+
+  .titulo-secundario {
+    font-size: 0.9rem;
+  }
+
+  .filters-row {
+    margin-top: 40px;
+  }
+
+  .row-primary-filter {
+    display: block;
+  }
+
+  .row-input-search {
+    width: 100%;
+    margin-right: 0px;
+  }
+  
+  .row-blockchain {
+    width: 100%;
+    margin-left: 0px;
+    margin-top: 15px;
+  }
+
+  .small-filtro {
+    display: block;
+    margin-top: 15px;
+  }
+
+  .scalability-row {
+    display: none;
+  }
+}
+
+@media (max-width: 476px) {
+  .filters-row {
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 40px;
+  }
+
+  .filters-row-dex {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  .cards-row {
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+  }
+
+  .cards-row > div {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+
+  .titulo-principal {
+    padding-left: 14px;
+    font-size: 1.4rem;
+  }
+
+  .titulo-secundario {
+    font-size: 0.7rem;
+  }
+
+  .sem-dados {
+    margin: 0px;
+    margin-top: 10px;
+  }
+}
+
+

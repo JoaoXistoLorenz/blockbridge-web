@@ -12,8 +12,11 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
+    "noImplicitAny": false,
     "types": [
-      "webpack-env"
+      "webpack-env",
+      "vue",
+      "vue-moment"
     ],
     "paths": {
       "@/*": [
@@ -32,9 +35,10 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "tests/**/*.tsx",   
   ],
   "exclude": [
     "node_modules"
   ]
 }
+/* "src/shims-tsx.d.ts", "shims-vue.d.ts" */
