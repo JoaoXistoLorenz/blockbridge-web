@@ -55,7 +55,7 @@
              <div class="rede-social-div icon-color-red">
                 <font-awesome-icon icon="cubes" class="color-white"/>
               </div>
-              <div>Parachains</div>
+              <div>NFTs</div>
             </el-card>
           </div>
         </el-card>
@@ -76,8 +76,8 @@
 
     public goToPage(num: number): void {
       try {
-        const pages = ['Home', 'Dexs', 'Lending', 'LiquidStaking', 'Parachain' ]
-        const paths = ['/', '/dexs', '/lending', '/liquid-staking', '/parachain' ]
+        const pages = ['Home', 'Dexs', 'Lending', 'LiquidStaking', 'Nfts' ]
+        const paths = ['/', '/dexs', '/lending', '/liquid-staking', '/nfts' ]
         if (this.$router.currentRoute.name !== pages[num - 1]) {
           this.$router.push({ path: paths[num - 1], replace: true });
         }

@@ -9,7 +9,7 @@
         <span class="itens-menu" :class="page === 2 ? 'active' : ''" @click="goToPage(2)">DEXs</span>
         <span class="itens-menu" :class="page === 3 ? 'active' : ''" @click="goToPage(3)">Lending</span>
         <span class="itens-menu" :class="page === 4 ? 'active' : ''" @click="goToPage(4)">Liquid Staking</span>
-        <span class="itens-menu" :class="page === 5 ? 'active' : ''" @click="goToPage(5)">Parachains</span>
+        <span class="itens-menu" :class="page === 5 ? 'active' : ''" @click="goToPage(5)">NFTs</span>
         <el-button class="btn-destaque" @click="goToNovaSolucao()"> 
           Informe outra solução
           <font-awesome-icon icon="comments" class="ml-5px"></font-awesome-icon>
@@ -36,8 +36,8 @@
 
     public goToPage(num: number): void {
       try {
-        const pages = ['Home', 'Dexs', 'Lending', 'LiquidStaking', 'Parachain' ]
-        const paths = ['/', '/dexs', '/lending', '/liquid-staking', '/parachain' ]
+        const pages = ['Home', 'Dexs', 'Lending', 'LiquidStaking', 'Nfts' ]
+        const paths = ['/', '/dexs', '/lending', '/liquid-staking', '/nfts' ]
         if (this.$router.currentRoute.name !== pages[num - 1]) {
           this.$router.push({ path: paths[num - 1], replace: true });
         }

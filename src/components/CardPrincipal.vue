@@ -2,7 +2,9 @@
   <el-card class="hover-card" :body-style="{ padding: '0px' }">
     <div @click="irParaPlataforma(plataforma.id)">
       <div class="background-img" >
-        <span class="tipo-card">{{findTipo(plataforma.tipo)}}</span>
+        <span class="tipo-card">
+          {{ plataforma.tipoEscalabilidade.id ? findTipoEscalabilidade(parseInt(plataforma.tipoEscalabilidade.id)) : findTipoMenu(parseInt(plataforma.tipoMenu.id))}}
+        </span>
         <el-image class="img-card" :src="imageUrl(plataforma.imagem)" />
       </div>
       <div class="text-card">
@@ -15,7 +17,7 @@
       </div>
     </div>
     <div class="card-btn">
-      <el-button type="text" @click="openWebsite(plataforma.url)"> 
+      <el-button type="text" @click="openWebsite(plataforma.urlsite)"> 
         Visite o website <font-awesome-icon icon="right-to-bracket"/>
       </el-button>
     </div>
@@ -24,7 +26,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import { TiposEscalabilidade } from '../utils/enum';
+  import { TiposEscalabilidade, TipoMenu } from '../utils/enum';
 
   @Component({
     name: 'CardPrincipal',
@@ -35,20 +37,31 @@
     @Prop()
     public plataforma!: any;
 
-    public imageUrl(img: string) {
-      return  require(`@/assets/${img}`);
+    @Prop({ default: false })
+    public isPlataforma;
+
+    public imageUrl(img: string): any {
+      return require(`@/assets/${img}`);
     }
 
-    public openWebsite(url: string) {
+    public openWebsite(url: string): void {
       window.open(url, "_blank");
     }
 
-    public findTipo(num: number): string {
+    public findTipoEscalabilidade(num: number): string {
       return TiposEscalabilidade[num].toString();
     }
 
-    public irParaPlataforma(id: number): void {
-      this.$router.push({ path: '/plataforma', replace: true });
+    public findTipoMenu(num: number): string {
+      return TipoMenu[num].toString();
+    }
+
+    public async irParaPlataforma(id: number): Promise<void> {
+      if (this.isPlataforma) {
+        this.$emit('atualizaPlataforma', [id]);
+        return;
+      }
+      this.$router.replace({ path: `/plataforma/${id}`, replace: true });
     }
 
   }

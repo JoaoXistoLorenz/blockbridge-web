@@ -1,5 +1,5 @@
 <template>
-  <el-row>
+  <el-row v-if="model.id">
     <BackTop/>
     <Topbar/>
     <el-main ref="main" class="main">
@@ -8,7 +8,7 @@
         Descubra uma nova tecnologia!
         <div class="titulo-secundario">
           <font-awesome-icon icon="circle-question" class="color-principal"/>
-          Encontre as principais informações sobre a plataforma {{model.nome }} ! 
+          Encontre as principais informações sobre a plataforma {{ model.nome }}! 
         </div>
       </div>
       
@@ -17,7 +17,9 @@
         <el-col :xs="24" :sm="24" :md="6" :lg="8" :xl="8">
           <el-card class="card-plataforma" :body-style="{ padding: '0px'}">
             <div class="center titulo-plataforma">
-              <span class="tipo-card" >Rollup Otimista</span>
+              <span class="tipo-card" >
+                {{ model.tipoEscalabilidade.id ? findTipoEscalabilidade(parseInt(model.tipoEscalabilidade.id)) : findTipoMenu(parseInt(model.tipoMenu.id))}}
+              </span>
               <el-image class="img-card" :src="imageUrl(model.imagem)"/> 
               <div> {{ model.nome }} </div>
                <el-button class="mt-5px mr-5px btn-scalability-ativo" style="width: 90%; margin-top: 30px; margin-bottom: 15px" @click="navegarPara(model.urlsite)">
@@ -35,7 +37,7 @@
               {{ model.descricao }}
             </div>
             <div class="mt-10px"></div>
-            <span class="title-secundario-card mt-15px">Chains:</span> <el-tag v-for="chain in model.blockchains" :key="chain" type="primary" class="mt-10px bold ml-5px"> {{ chain }}</el-tag>
+            <span class="title-secundario-card mt-15px">Chains:</span> <el-tag v-for="chain in model.blockchains" :key="chain.id" type="primary" class="mt-10px bold ml-5px"> {{ chain.idBlockchain.nome }}</el-tag>
           </el-card>
         </el-col>
 
@@ -45,7 +47,7 @@
             <el-row>
               <el-col :xs="24" :sm="12" :md="8" :lg="4" :xl="4">
                 <div @click="navegarPara(model.urlgit)">
-                  <el-card :shadow="'never'" class="rede-social" :class="model.urlgit === '' ? 'disabled-rede-social' : ''" @click="navegarPara(model.urlgit)">
+                  <el-card :shadow="'never'" class="rede-social" :class="!model.urlgit? 'disabled-rede-social' : ''" @click="navegarPara(model.urlgit)">
                    <el-image :src="'https://cdn.sanity.io/files/zg5gx8g4/production/f15df31eeb55fc3ec17515c97c7a6150affeb89f.svg'"></el-image>
                     <div>Github</div>
                   </el-card>
@@ -53,7 +55,7 @@
               </el-col>
               <el-col :xs="24" :sm="12" :md="8" :lg="4" :xl="4">
                 <div @click="navegarPara(model.urldoc)">
-                  <el-card :shadow="'never'" class="rede-social" :class="model.urldoc === '' ? 'disabled-rede-social' : ''">
+                  <el-card :shadow="'never'" class="rede-social" :class="!model.urldoc ? 'disabled-rede-social' : ''">
                     <div class="rede-social-div">
                       <font-awesome-icon icon="file-lines" class="color-white"/>
                     </div>
@@ -63,7 +65,7 @@
               </el-col>
               <el-col :xs="24" :sm="12" :md="8" :lg="4" :xl="4">
                 <div @click="navegarPara(model.urlinsta)">
-                  <el-card :shadow="'never'" class="rede-social" :class="model.urlinsta === '' ? 'disabled-rede-social' : ''">
+                  <el-card :shadow="'never'" class="rede-social" :class="!model.urlinsta ? 'disabled-rede-social' : ''">
                    <el-image :src="'https://cdn.sanity.io/files/zg5gx8g4/production/1fbc0148b6d709ccb6b48c2aa6788a245d2f98cf.svg'"></el-image>
                     <div>Instagram</div>
                   </el-card>
@@ -71,7 +73,7 @@
               </el-col>
               <el-col :xs="24" :sm="12" :md="8" :lg="4" :xl="4">
                 <div @click="navegarPara(model.urltel)">
-                  <el-card :shadow="'never'" class="rede-social" :class="model.urltel === '' ? 'disabled-rede-social' : ''">
+                  <el-card :shadow="'never'" class="rede-social" :class="!model.urltel ? 'disabled-rede-social' : ''">
                     <el-image :src="'https://cdn.sanity.io/files/zg5gx8g4/production/bf51160fa79f07afc49d9cdf406f7bc6b6ae88df.svg'"></el-image>
                     <div>Telegram</div>
                   </el-card>
@@ -79,7 +81,7 @@
               </el-col>
               <el-col :xs="24" :sm="12" :md="8" :lg="4" :xl="4">
                 <div @click="navegarPara(model.urltwt)">
-                  <el-card :shadow="'never'" class="rede-social" :class="model.urltwt === '' ? 'disabled-rede-social' : ''">
+                  <el-card :shadow="'never'" class="rede-social" :class="!model.urltwt ? 'disabled-rede-social' : ''">
                     <el-image :src="'https://cdn.sanity.io/files/zg5gx8g4/production/e571358b3ad2230ec0e9f462a2c5c605c65d0ff7.svg'"></el-image>
                     <div>Twitter</div>
                   </el-card>
@@ -87,7 +89,7 @@
               </el-col>
               <el-col :xs="24" :sm="12" :md="8" :lg="4" :xl="4">
                 <div @click="navegarPara(model.urldisc)">
-                  <el-card :shadow="'never'" class="rede-social" :class="model.urldisc === '' ? 'disabled-rede-social' : ''">
+                  <el-card :shadow="'never'" class="rede-social" :class="!model.urldisc ? 'disabled-rede-social' : ''">
                     <el-image :src="'https://cdn.sanity.io/files/zg5gx8g4/production/4c44e7afd38b46cf0d2c693b63ef9ec34f782eca.svg'"></el-image>
                     <div>Discord</div>
                   </el-card>
@@ -103,7 +105,7 @@
             <el-row>
               <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12">
                 <div @click="navegarPara(model.urlcap)">
-                  <el-card :shadow="'never'" class="rede-social" :class="model.urlcap === '' ? 'disabled-rede-social' : ''" >
+                  <el-card :shadow="'never'" class="rede-social" :class="!model.urlcap? 'disabled-rede-social' : ''" >
                    <el-image :src="imageUrl('coinmarketcap.png')"></el-image>
                     <div>Coinmarketcap</div>
                   </el-card>
@@ -111,7 +113,7 @@
               </el-col>
               <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12">
                 <div @click="navegarPara(model.urltrading)">
-                  <el-card :shadow="'never'" class="rede-social" :class="model.urltrading === '' ? 'disabled-rede-social' : ''">
+                  <el-card :shadow="'never'" class="rede-social" :class="!model.urltrading ? 'disabled-rede-social' : ''">
                    <el-image :src="imageUrl('tradingview.png')"></el-image>
                     <div>Tradingview</div>
                   </el-card>
@@ -127,7 +129,7 @@
             <el-row>
               <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12">
                 <div @click="navegarPara(model.urlbinance)">
-                  <el-card :shadow="'never'" class="rede-social" :class="model.urlbinance === '' ? 'disabled-rede-social' : ''">
+                  <el-card :shadow="'never'" class="rede-social" :class="!model.urlbinance? 'disabled-rede-social' : ''">
                    <el-image :src="imageUrl('binance.png')"></el-image>
                     <div>Binance</div>
                   </el-card>
@@ -135,7 +137,7 @@
               </el-col>
               <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12">
                 <div @click="navegarPara(model.urlcoinbase)">
-                  <el-card :shadow="'never'" class="rede-social" :class="model.urlcoinbase === '' ? 'disabled-rede-social' : ''">
+                  <el-card :shadow="'never'" class="rede-social" :class="!model.urlcoinbase? 'disabled-rede-social' : ''">
                    <el-image :src="imageUrl('coinbase.svg')"></el-image>
                     <div>Coinbase</div>
                   </el-card>
@@ -146,15 +148,14 @@
         </el-col>
 
         <!-- Tecnologia Semelhante -->
-        <el-col :span="24" style="margin-top: 60px" class="titulo center">
+        <el-col v-if="plataformas.length > 0" :span="24" style="margin-top: 60px" class="titulo center">
           Encontre outra tecnologia semelheante!
         </el-col>
 
         <!-- Outras tecnologias -->
-        <el-col :span="24" style="padding-top: 60px; padding-bottom: 10px">
-          <el-col v-for="plataforma in plataformas" :key="plataforma.id" class="p-10px" :xs="24" :sm="24" :md="12" :lg="8" :xl="6">
-            <CardPrincipal :plataforma="plataforma"/>
-            <CardPrincipal :plataforma="plataforma" style="margin-top: 20px"/>
+        <el-col v-if="plataformas.length > 0" :span="24" style="padding-top: 60px; padding-bottom: 10px">
+          <el-col v-for="plataforma in plataformas" :key="plataforma.id" class="p-10px" :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
+            <CardPrincipal :plataforma="plataforma" :isPlataforma="setPlataformaValue" @atualizaPlataforma="atualizaPlataforma"/>
           </el-col>
           <SemDados v-if="plataformas.length === 0" class="sem-dados"/>
         </el-col>
@@ -179,6 +180,7 @@
   import Topbar from '../components/Topbar.vue';
   import SemDados from '../components/SemDados.vue';
   import Areas from '../components/Areas.vue';
+  import { TiposEscalabilidade, TipoMenu } from '../utils/enum';
 
   @Component({
     name: 'Plataforma',
@@ -193,66 +195,29 @@
       return  require(`@/assets/${img}`);
     }
 
-    public setPlataformas(): void {
-      const plataforma1: any = {
-        id: 1,
-        tipo: 2,
-        imagem: 'cartesi.webp',
-        nome: 'Cartesi',
-        descricao: "Is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the e printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the",
-        url: 'https://www.google.com',
+    public async setPlataformas(): Promise<void> {
+      this.plataformas = [];
+      if (!this.model.id || !this.model.tipoMenu?.id) return;
+      const ret: any = await this.$axios.get(`/plataforma/menulimit/${this.model.tipoMenu.id}/${this.model.id}`);
+      if (ret.success && ret.data.length) {
+        this.plataformas = ret.data;
       }
-      const plataforma2: any = {
-        id: 2,
-        tipo: 4,
-        imagem: 'op.png',
-        nome: 'Optimism',
-        descricao: "Is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the e printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the",
-        url: 'https://www.google.com',
-      }
-
-      const plataforma3: any = {
-        id: 3,
-        tipo: 4,
-        imagem: 'op.png',
-        nome: 'Arbitrum',
-        descricao: "Is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the e printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the",
-        url: 'https://www.google.com',
-      }
-      this.plataformas.push(plataforma1);
-      this.plataformas.push(plataforma2);
-      this.plataformas.push(plataforma3);
     }
 
-    public setModel(): void {
-      this.model = {
-        id: 1,
-        tipo: 4,
-        imagem: 'cartesi.webp',
-        nome: 'Cartesi',
-        descricao: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College. it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College.",
-        blockchains: ['ETHEREUM'],
-        urlsite: 'https://www.google.com',
-        urlgit: 'https://www.google.com',
-        urldoc: 'https://www.google.com',
-        urlinsta: 'https://www.google.com',
-        urltel: 'https://www.google.com',
-        urltwt: 'https://www.google.com',
-        urldisc: 'https://www.google.com',
-        urlcap: 'https://www.google.com',
-        urltrading: 'https://www.google.com',
-        urlbinance: 'https://www.google.com',
-        urlcoinbase: 'https://www.google.com',
-        /* urlgit: '',
-        urldoc: '',
-        urlinsta: '',
-        urltel: '',
-        urltwt: '',
-        urldisc: '',
-        urlcap: '',
-        urltrading: '',
-        urlbinance: '',
-        urlcoinbase: '', */
+    public sendToNotFound(): void {
+      this.$router.push({ path: `/erro`});
+    }
+
+    public async setModel(): Promise<void> {
+      this.model = {};
+      if (!this.$route?.params?.id) {
+        this.sendToNotFound();
+      }
+      const ret: any = await this.$axios.get(`/plataforma/${this.$route.params.id}`);
+      if (ret.success && ret.data?.id) {
+        this.model = ret.data;
+      } else {
+        this.sendToNotFound();
       }
     }
 
@@ -261,9 +226,35 @@
       window.open(url, "_blank");
     }
 
-    public created(): any {
-      this.setPlataformas();
-      this.setModel();
+    public findTipoEscalabilidade(num: number): string {
+      return TiposEscalabilidade[num].toString();
+    }
+
+    public findTipoMenu(num: number): string {
+      return TipoMenu[num].toString();
+    }
+
+    public async loadingPage(): Promise<any> {
+      await this.setModel();
+      await this.setPlataformas();
+    }
+
+    public async atualizaPlataforma(id: number): Promise<any> {
+      this.$route.params.id = id.toString();
+      try {
+        this.$router.replace({ path: `/plataforma/${id}`, replace: true });
+      } catch { 
+        this.$forceUpdate();
+      }
+      await this.loadingPage();
+    }
+
+    public setPlataformaValue(): boolean { 
+      return true;
+    }
+
+    public async created(): Promise<any> {
+      await this.loadingPage();
     }
   }
 

@@ -167,7 +167,11 @@
 // criar crud plataforma
 // refatorar codigo (arrumar menu)
 // responsividade
-// tvl, preço se tiver token, video
+// tvl, preço se tiver token
+// ordenar listagem
+// plataformas relacionadas tratanr quando tem escalabilidade e não deixar sempre os mesmos
+// adicionar video yt, blockscan, segurança e noticias
+// adicionar ler mais.
 </script>
 
 <style lang="scss">

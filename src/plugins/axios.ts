@@ -5,9 +5,10 @@ export const mainApiUrl = process.env.NODE_ENV === 'development' ? '' : 'MAIN_AP
 
 // Full config:  https://github.com/axios/axios#request-config
 const config = {
-  baseURL: mainApiUrl || '',
+  baseURL: 'http://localhost:3000',
   timeout: 60 * 1000,
   withCredentials: false,
+  port: 3000,
 };
 
 const axiosInstance = axios.create(config);

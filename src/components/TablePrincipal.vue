@@ -26,7 +26,7 @@
           <h4 class="ml-5px">
             <el-tag type="warning" style="width: 100%">
               <font-awesome-icon class="mr-5px color-orange" icon="circle-info"/>
-                {{findTipo(props.row.tipo)}}
+                {{ props.row.tipoEscalabilidade?.id ? findTipoEscalabilidade(parseInt(props.row.tipoEscalabilidade.id)) : findTipoMenu(parseInt(props.row.tipoMenu.id)) }}
             </el-tag>
           </h4>
         </template>
@@ -38,7 +38,7 @@
       </el-table-column>
       <el-table-column align="center" :show-overflow-tooltip="true" width="200px">
         <template slot-scope="props">
-          <el-button type="text" @click="openWebsite(props.row.url)"> 
+          <el-button type="text" @click="openWebsite(props.row.urlsite)"> 
             Visite website <font-awesome-icon icon="right-to-bracket"/>
           </el-button>
         </template>
@@ -49,7 +49,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import { TiposEscalabilidade } from '../utils/enum';
+  import { TiposEscalabilidade, TipoMenu } from '../utils/enum';
 
   @Component({
     name: 'TablePrincipal',
@@ -60,21 +60,25 @@
     @Prop()
     public plataformas!: any;
 
-    public imageUrl(img: string) {
+    public imageUrl(img: string): any {
       return  require(`@/assets/${img}`);
     }
 
-    public openWebsite(url: string) {
+    public openWebsite(url: string): void {
       window.open(url, "_blank");
     }
 
-    public findTipo(num: number): string {
+    public findTipoEscalabilidade(num: number): string {
       return TiposEscalabilidade[num].toString();
     }
 
+    public findTipoMenu(num: number): string {
+      return TipoMenu[num].toString();
+    }
+
+    // eslint-disable-next-line
     public irParaPlataforma(row: any): void {
-      console.log(row)
-      this.$router.push({ path: '/plataforma', replace: true });
+      this.$router.push({ path: `/plataforma/${row.id}`, replace: true });
     }
 
   }
