@@ -24,6 +24,15 @@
   } */
 }
 
+@media (max-width: 900px) {
+  .radio-btn {
+    display: none;
+  }
+  .scalability-radio-btn {
+    display: none;
+  }
+}
+
 @media (max-width: 800px) {
   .scalability-row {
     margin-top: 25px;
@@ -32,13 +41,13 @@
     text-align: right;
   }
 
-  .filters-row {
+  .scalability-filters-row {
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 10px;
   }
 
-  .filters-row-dex {
+  .filters-row {
     margin-left: 10px;
     margin-right: 10px;
   }
@@ -58,6 +67,11 @@
     margin-left: 10%;
     margin-right: 10%;
   }
+
+  .plataforma-row {
+    margin-left: 5px; 
+    margin-right: 5px;
+  }
 }
 
 .small-filtro {
@@ -67,7 +81,7 @@
 @media (max-width: 691px) {
   .titulo-principal {
     padding-left: 14px;
-    font-size: 2rem;
+    font-size: 1.7rem;
     padding-top: 10px;
   }
 
@@ -75,7 +89,11 @@
     font-size: 0.9rem;
   }
 
-  .filters-row {
+  .titulo {
+    font-size: 1.7rem;
+  }
+
+  .scalability-filters-row {
     margin-top: 40px;
   }
 
@@ -102,16 +120,21 @@
   .scalability-row {
     display: none;
   }
+
+  .plataforma-row {
+    margin-left: 0px; 
+    margin-right: 0px;
+  }
 }
 
-@media (max-width: 476px) {
-  .filters-row {
-    margin-left: 0px;
-    margin-right: 0px;
+@media (max-width: 540px) {
+  .scalability-filters-row {
+    margin-left: 10px;
+    margin-right: 10px;
     margin-top: 40px;
   }
 
-  .filters-row-dex {
+  .filters-row {
     margin-left: 0px;
     margin-right: 0px;
   }
@@ -129,7 +152,11 @@
 
   .titulo-principal {
     padding-left: 14px;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
+  }
+
+  .titulo {
+    font-size: 1.3rem;
   }
 
   .titulo-secundario {
@@ -139,6 +166,11 @@
   .sem-dados {
     margin: 0px;
     margin-top: 10px;
+  }
+
+  .plataforma-row {
+    margin-left: 0px; 
+    margin-right: 0px;
   }
 }
 

@@ -1,20 +1,38 @@
 <template>
   <el-row class="topbar">
     <div class="ds-flex">
+
+      <!-- Esquerda -->
       <div class="float-left">
         <el-image class="img-logo pointer" :src="require('@/assets/logo.png')" @click="goToPage(1)"/>
       </div>
+
+      <!-- Direita -->
       <div id="menu-superior" class="float-right right-side-topbar">
-        <span class="itens-menu" :class="page === 1 ? 'active' : ''" @click="goToPage(1)" >Escalabilidade</span>
-        <span class="itens-menu" :class="page === 2 ? 'active' : ''" @click="goToPage(2)">DEXs</span>
-        <span class="itens-menu" :class="page === 3 ? 'active' : ''" @click="goToPage(3)">Lending</span>
-        <span class="itens-menu" :class="page === 4 ? 'active' : ''" @click="goToPage(4)">Liquid Staking</span>
-        <span class="itens-menu" :class="page === 5 ? 'active' : ''" @click="goToPage(5)">NFTs</span>
+        <span class="itens-menu" :class="page === 1 ? 'active' : ''" @click="goToPage(1)">
+          Escalabilidade
+        </span>
+        <span class="itens-menu" :class="page === 2 ? 'active' : ''" @click="goToPage(2)">
+          DEXs
+        </span>
+        <span class="itens-menu" :class="page === 3 ? 'active' : ''" @click="goToPage(3)">
+          Lending
+        </span>
+        <span class="itens-menu" :class="page === 4 ? 'active' : ''" @click="goToPage(4)">
+          Liquid Staking
+        </span>
+        <span class="itens-menu" :class="page === 5 ? 'active' : ''" @click="goToPage(5)">
+          NFTs
+        </span>
+
+        <!-- Botão -->
         <el-button class="btn-destaque" @click="goToNovaSolucao()"> 
           Informe outra solução
           <font-awesome-icon icon="comments" class="ml-5px"></font-awesome-icon>
         </el-button>
       </div>
+
+      <!-- Mobile -->
       <div class="menu-mobile">
         <font-awesome-icon icon="bars" class="ml-5px"></font-awesome-icon>
       </div>
@@ -66,9 +84,4 @@
 </script>
 
 <style scoped lang="scss">
-
-.dialog {
-  z-index: 10000;
-}
-
 </style>

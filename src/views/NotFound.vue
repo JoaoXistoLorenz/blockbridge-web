@@ -1,16 +1,23 @@
 <template>
-  <el-row class="message">
+  <el-row class="notfound-message">
     <el-col class="notfound-col">
       <el-card class="notfound-card">
+
+        <!-- Titulo -->
         <div slot="header" class="titulo-notfound">
           <span>OOps!</span>
         </div>
-        <div style="padding-bottom: 50px">
+
+        <div style="notfound-padding-bottom">
+
+          <!-- Icone -->
           <el-row class="center">
-            <div class="circle-notfound">
-              <font-awesome-icon icon="exclamation" class="color-white ic"/>
+            <div class="notfound-circle">
+              <font-awesome-icon icon="exclamation" class="color-white notfound-icon-padding"/>
             </div>
           </el-row>
+
+          <!-- Texto -->
           <el-row class="titulo-secundario p-10px">
             Parece que você tentou acessar uma página que não existe...
           </el-row>
@@ -39,20 +46,4 @@
 </script>
 
 <style scoped lang="scss">
-.circle-notfound {
-  width: 80px;
-  height: 80px;
-  border-radius: 80px;
-  background: linear-gradient(90deg, hsla(333, 100%, 53%, 1) 0%, hsla(33, 94%, 57%, 1) 100%);
-  text-align: center;
-  color: #fff;
-  font-weight: bold;
-  font-size: 30px;
-  margin: auto;
-}
-
-.ic {
-  padding-top: 25px;
-}
-
 </style>

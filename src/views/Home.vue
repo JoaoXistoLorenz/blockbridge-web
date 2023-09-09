@@ -15,7 +15,7 @@
 
       <!-- Botões -->
       <el-row class="scalability-row">
-        <el-radio-group v-model="tipoLista" size="mini" style="float: left; padding-top: 15px" fill="#635DFF">
+        <el-radio-group class="scalability-radio-btn" v-model="tipoLista" size="mini" fill="#635DFF">
           <el-radio-button :label="1">
             <font-awesome-icon icon="table-cells-large"/>
           </el-radio-button>
@@ -23,13 +23,15 @@
             <font-awesome-icon icon="list"/>
           </el-radio-button>
         </el-radio-group>
-        <el-button v-for=" (t) in tiposEscalabilidade" :key="t.key+'btn'" class="mt-5px" :class="tipoEscalabilidade === parseInt(t.key) ? 'btn-scalability-ativo' : 'btn-scalability'" @click="setTipo(parseInt(t.key))">{{t.value}}</el-button>
+        <el-button v-for=" (t) in tiposEscalabilidade" :key="t.key+'btn'" class="mt-5px" :class="tipoEscalabilidade === parseInt(t.key) ? 'scalability-btn-ativo' : 'scalability-btn'" @click="setTipo(parseInt(t.key))">{{t.value}}</el-button>
       </el-row>
 
       <!-- Filtros -->
-      <el-row class="filters-row">
+      <el-row class="scalability-filters-row">
         <el-card :body-style="{ padding: '20px' }">
           <el-row class="row-primary-filter">
+
+            <!-- Search -->
             <el-row class="row-input-search">
               <div class="filtro">
                 Filtre por uma plataforma:
@@ -40,6 +42,8 @@
                 </el-button>
               </el-input>
             </el-row>
+
+            <!-- Blockchains -->
             <el-row class="row-blockchain">
               <div class="filtro"> 
                 Filtre por uma Blockchain:
@@ -53,9 +57,11 @@
                 </el-option>
               </el-select>
             </el-row>
+
+            <!-- Escalabilidade Mobile -->
             <el-row class="small-filtro">
               <div class="filtro"> 
-                Filtre por técnica:
+                Filtre por Escalabilidade:
               </div>
               <el-select v-model="tipoEscalabilidade" @change="procularSolucao()" placeholder="Filtre por uma Blockchain" style="width:100%">
                 <el-option
@@ -73,15 +79,21 @@
       <!-- Cards -->
       <el-row class="cards-row">
         <el-row v-if="plataformas.length > 0">
+
+          <!-- Card -->
           <el-row v-if="tipoLista === 1">
             <el-col v-for="plataforma in plataformas" :key="plataforma.id+'plataforma'" class="p-10px" :xs="24" :sm="24" :md="12" :lg="8" :xl="6">
               <CardPrincipal :plataforma="plataforma"/>
             </el-col>
           </el-row>
-          <el-row v-if="tipoLista === 2" style="margin: 10px">
+
+          <!-- Table -->
+          <el-row v-if="tipoLista === 2" class="m-10px">
             <TablePrincipal :plataformas="plataformas"></TablePrincipal>
           </el-row>
         </el-row>
+
+        <!-- Sem dados -->
         <SemDados v-else class="sem-dados"/>
       </el-row>
     </el-main>
@@ -175,8 +187,4 @@
 </script>
 
 <style lang="scss">
-.filtro {
-  padding-bottom: 10px;
-  font-weight: bold;
-}
 </style>

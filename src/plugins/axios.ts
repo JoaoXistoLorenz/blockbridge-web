@@ -1,11 +1,12 @@
 import Vue, { PluginObject } from 'vue';
 import axios from 'axios';
-
+import router from '../router';
 export const mainApiUrl = process.env.NODE_ENV === 'development' ? '' : 'MAIN_API_URL';
 
 // Full config:  https://github.com/axios/axios#request-config
 const config = {
-  baseURL: 'http://localhost:3000',
+  /* baseURL: 'http://localhost:3000', */
+  baseURL: 'http://192.168.1.5:3000',
   timeout: 60 * 1000,
   withCredentials: false,
   port: 3000,
@@ -31,15 +32,15 @@ axiosInstance.interceptors.response.use(
   (res) => {
     return res.data as Response;
   },
-  (err: { response: { status: number; }; }) => {
+  async (err: { response: { status: number; }; }) => {
     // fazer logout
-    /* if (err.response.status === 401) {
-      store.dispatch('AuthStore/logout')
-        .then(() => router.push({
-          name: 'Login',
-          params: { msg: 'As credenciais expiraram, por favor refaça o login.' },
-        }));
-    } */
+    if (err.response.status === 401) {
+      try {
+        router.push({ name: 'Home', replace: true });
+      } finally {
+        await localStorage.setItem('token', '');
+      }
+    }
     return Promise.reject(err);
   },
 );

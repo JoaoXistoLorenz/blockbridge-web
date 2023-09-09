@@ -1,12 +1,40 @@
 <template>
   <el-card class="hover-card" :body-style="{ padding: '0px' }">
     <div @click="irParaPlataforma(plataforma.id)">
-      <div class="background-img" >
+
+      <!-- Imagem Card -->
+      <div class="background-img">
+
+        <!-- Tipo -->
         <span class="tipo-card">
-          {{ plataforma.tipoEscalabilidade.id ? findTipoEscalabilidade(parseInt(plataforma.tipoEscalabilidade.id)) : findTipoMenu(parseInt(plataforma.tipoMenu.id))}}
+          {{ plataforma.tipoEscalabilidade?.id ? 
+            findTipoEscalabilidade(parseInt(plataforma.tipoEscalabilidade.id)) : 
+            findTipoMenu(parseInt(plataforma.tipoMenu.id))
+          }}
         </span>
+
+        <!-- Blockchains -->
+        <el-tooltip effect="light" placement="bottom">
+
+          <!-- Tooltip -->
+          <template slot="content">
+            <div v-for="b in plataforma.blockchains" :key="b.id" style="padding: 5px"> 
+              {{ b.idBlockchain.nome }}
+            </div>
+          </template>
+          
+          <!-- Texto -->
+          <span class="tipo-card-blockchains">
+            <font-awesome-icon icon="layer-group"></font-awesome-icon>
+            Blockchains <font-awesome-icon icon="chevron-down"></font-awesome-icon>
+          </span>
+        </el-tooltip>
+
+        <!-- Imagem -->
         <el-image class="img-card" :src="imageUrl(plataforma.imagem)" />
       </div>
+
+      <!-- Texto -->
       <div class="text-card">
         <div class="title-card">
           <font-awesome-icon class="color-red mr-5px" icon="thumbtack"/> {{plataforma.nome}}
@@ -16,8 +44,10 @@
         </div>
       </div>
     </div>
+
+    <!-- Website -->
     <div class="card-btn">
-      <el-button type="text" @click="openWebsite(plataforma.urlsite)"> 
+      <el-button type="text" @click="findWebsite()"> 
         Visite o website <font-awesome-icon icon="right-to-bracket"/>
       </el-button>
     </div>
@@ -56,6 +86,18 @@
       return TipoMenu[num].toString();
     }
 
+    public findWebsite(): void {
+      let link = '';
+      this.plataforma.links.forEach((element) => {
+        if (element.nome === 'Website') {
+          link = element.url;
+        }
+      });
+      if (link !== '') {
+        this.openWebsite(link);
+      }
+    }
+
     public async irParaPlataforma(id: number): Promise<void> {
       if (this.isPlataforma) {
         this.$emit('atualizaPlataforma', [id]);
@@ -68,31 +110,4 @@
 </script>
 
 <style scoped lang="scss">
-.title-card {
-  font-weight: 900;
-  font-size: 1.2rem;
-}
-
-.tipo-card {
-  position: absolute;
-  top: 5px;
-  right: 10px;
-  font-weight: bold;
-  font-size: 10px;
-  color: white;
-  background: orange;
-  padding-left: 7px;
-  padding-right: 7px;
-  padding-bottom: 2px;
-  border-radius: 10px;
-}
-
-.descricao-card {
-  line-height: 25px;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 </style>

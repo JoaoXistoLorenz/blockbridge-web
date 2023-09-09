@@ -79,6 +79,7 @@
 <script lang="ts">
   import {Component, Vue} from 'vue-property-decorator';
   import Topbar from '../components/Topbar.vue';
+  import moment from 'moment';
 
   @Component({
     name: 'NovaSolucao',
@@ -87,11 +88,13 @@
 
   export default class NovaSolucao extends Vue {
     public formValue: any = {
+      id: null,
       titulo: '',
+      url: '',
+      ip: '',
+      data: '',
       tipo: 1,
       descricao: '',
-      ip: '',
-      url: '',
     };
 
     public resetUrl(): void {
@@ -100,15 +103,26 @@
 
     public resetForm(): void {
       this.formValue = {
+        id: null,
         titulo: '',
+        url: '',
+        ip: '',
+        data: '',
         tipo: 1,
         descricao: '',
-        ip: '',
-        url: '',
       };
     }
 
-    public enviarForm(): void {
+    isValidUrl(url: string): boolean {
+      try {
+        new URL(url);
+        return true;
+      } catch (error) {
+        return false;
+      }
+    }
+
+    public async enviarForm(): Promise<void> {
       if (!this.formValue.titulo) {
         this.$notify({
           title: 'Erro ao enviar!',
@@ -134,6 +148,14 @@
         });
         return;
       }
+      if (this.formValue.tipo === 1 && !this.isValidUrl(this.formValue.url)) {
+        this.$notify({
+          title: 'Erro ao enviar!',
+          message: 'URL inválida! Exemplo de URL: https://www.google.com/',
+          type: 'warning'
+        });
+        return;
+      }
 
       if (!this.formValue.descricao) {
         this.$notify({
@@ -144,13 +166,33 @@
         return;
       }
 
-      this.$notify({
-        title: 'Formulário Enviado com Sucesso!',
-        message: 'Muito obrigado por contribuir para o desenvolvimento da plataforma!',
-        type: 'success'
-      });
-      this.resetForm();
-      this.$router.push({ path: '/', replace: true });
+      try {
+        this.formValue.data = moment().format('YYYY-MM-DD HH:mm:ss');
+        const ret: any = await this.$axios.post(`/melhoria`, this.formValue);
+        if (ret.success) {
+          this.$notify({
+            title: 'Formulário Enviado com Sucesso!',
+            message: 'Muito obrigado por contribuir para o desenvolvimento da plataforma!',
+            type: 'success'
+          });
+          this.resetForm();
+          this.$router.push({ path: '/', replace: true });
+        } else {
+          this.$notify({
+            title: 'Erro ao enviar!',
+            message: ret.message.message,
+            type: 'warning'
+          });
+          return;
+        }
+      } catch {
+        this.$notify({
+          title: 'Erro ao enviar!',
+          message: 'Erro interno da aplicação!',
+          type: 'warning'
+        });
+        return;
+      }
     }
 
     public created(): void {

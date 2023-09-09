@@ -14,10 +14,10 @@
       </div>
 
       <!-- Filtros -->
-      <el-row class="filters-row-dex">
+      <el-row class="filters-row">
 
         <!-- Botões -->
-        <el-radio-group v-model="tipoLista" size="mini" style="margin-bottom: 10px" fill="#635DFF">
+        <el-radio-group class="radio-btn mb-10px" v-model="tipoLista" size="mini" fill="#635DFF">
           <el-radio-button :label="1">
             <font-awesome-icon icon="table-cells-large"/>
           </el-radio-button>
@@ -28,20 +28,20 @@
 
         <el-card :body-style="{ padding: '20px' }">
           <el-row class="row-primary-filter">
+
+            <!-- Search -->
             <el-row class="row-input-search">
-              <div class="filtro">
-                Filtre por uma plataforma:
-              </div>
+              <div class="filtro">Filtre por uma plataforma:</div>
               <el-input placeholder="Procure uma plataforma!" v-model="inputProcurar" @input="procularSolucao()">
                 <el-button slot="prepend">
                   <font-awesome-icon icon="search" class="color-principal"/>
                 </el-button>
               </el-input>
             </el-row>
+
+            <!-- Blockchain -->
             <el-row class="row-blockchain">
-              <div class="filtro"> 
-                Filtre por uma Blockchain:
-              </div>
+              <div class="filtro">Filtre por uma Blockchain:</div>
               <el-select v-model="blockchain" @change="procularSolucao()" placeholder="Filtre por uma Blockchain" style="width:100%">
                 <el-option
                   v-for="blockchain in blockchains"
@@ -55,18 +55,22 @@
         </el-card>
       </el-row>
 
-      <!-- Cards -->
       <el-row class="cards-row">
         <el-row v-if="plataformas.length > 0">
+
+          <!-- Cards -->
           <el-row v-if="tipoLista === 1">
             <el-col v-for="plataforma in plataformas" :key="plataforma.id+'plataforma'" class="p-10px" :xs="24" :sm="24" :md="12" :lg="8" :xl="6">
               <CardPrincipal :plataforma="plataforma"/>
             </el-col>
           </el-row>
-          <el-row v-if="tipoLista === 2" style="margin: 10px">
+          <!-- Tabela -->
+          <el-row v-if="tipoLista === 2" class="m-10px">
             <TablePrincipal :plataformas="plataformas"></TablePrincipal>
           </el-row>
         </el-row>
+
+        <!-- Sem dados -->
         <SemDados v-else class="sem-dados"/>
       </el-row>
     </el-main>
@@ -140,8 +144,4 @@
 </script>
 
 <style lang="scss">
-.filtro {
-  padding-bottom: 10px;
-  font-weight: bold;
-}
 </style>

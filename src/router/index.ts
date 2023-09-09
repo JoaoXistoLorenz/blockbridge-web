@@ -52,12 +52,23 @@ const routes: Array<RouteConfig> = [
   {
     path: '/admin',
     name: 'Login',
-    component: () => import(/* webpackChunkName: "llogin" */ '../views/Login.vue')
+    component: () => import(/* webpackChunkName: "llogin" */ '../views/admin/Login.vue')
   },
   {
     path: '/admin-home',
     name: 'Admin',
-    component: () => import(/* webpackChunkName: "adminhome" */ '../views/Admin.vue')
+    meta: {
+      requiresAuth: true,
+    },
+    component: () => import(/* webpackChunkName: "adminhome" */ '../views/admin/Admin.vue')
+  },
+  {
+    path: '/cadastro-plataforma',
+    name: 'CadastroPlataforma',
+    meta: {
+      requiresAuth: true,
+    },
+    component: () => import(/* webpackChunkName: "adminhome" */ '../views/admin/CadastroPlataforma.vue')
   },
   {
     path: '*',
@@ -69,6 +80,17 @@ const routes: Array<RouteConfig> = [
 const router = new VueRouter({
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (localStorage.getItem('token') == null || localStorage.getItem('token') == '') {
+      next({name: 'NotFound'});
+    } else {
+      next();
+    }
+  }
+  next();
+});
 export default router;
 
 

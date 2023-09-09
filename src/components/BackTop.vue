@@ -15,19 +15,11 @@
   export default class BackTop extends Vue {
     public showButton = false;
 
-    public created() {
-      window.addEventListener("scroll", this.toggleButtonVisibility);
-    }
-
-    public destroyed() {
-      window.removeEventListener("scroll", this.toggleButtonVisibility);
-    }
-
-    public toggleButtonVisibility() {
+    public toggleButtonVisibility(): void {
       this.showButton = window.scrollY > 100;
     }
 
-    public scrollToTop() {
+    public scrollToTop(): void {
       const scrollDuration = 300;
       const scrollStep = -window.scrollY / (scrollDuration / 15);
 
@@ -39,9 +31,16 @@
         }
       }, 15);
     }
+
+    public created(): any {
+      window.addEventListener("scroll", this.toggleButtonVisibility);
+    }
+
+    public destroyed(): any {
+      window.removeEventListener("scroll", this.toggleButtonVisibility);
+    }
   }
 </script>
 
 <style lang="scss">
-
 </style>
