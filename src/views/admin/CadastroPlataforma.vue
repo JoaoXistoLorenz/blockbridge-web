@@ -49,6 +49,7 @@
   import TablePrincipal from '../../components/TablePrincipal.vue';
   import FormPlataforma from '../../components/FormPlataforma.vue';
   import BackTop from '../../components/BackTop.vue';
+  import { DefaultLinks } from '../../utils/enum';
 
   @Component({
     name: 'CadastroPlataforma',
@@ -94,6 +95,41 @@
       this.slot = 0;
     }
 
+    public checkLinks(): boolean {
+      let save = true;
+      for (let index = 0; index < this.model.links.length; index++) {
+        const element = this.model.links[index];
+        if (element.url === '') {
+          save = false;
+          this.$notify({
+            title: 'Erro!',
+            message: 'Verifique as URLs dos Links!',
+            type: 'error'
+          });
+          break;
+        }
+        if (element.tipo === 1 && element.imagem === '') {
+          save = false;
+          this.$notify({
+            title: 'Erro!',
+            message: 'Imagem obrigatória no tipo Imagem!',
+            type: 'error'
+          });
+          break;
+        }
+        if (element.tipo === 2 && (element.icone === '' || element.bg === '' || element.color == '')) {
+          save = false;
+          this.$notify({
+            title: 'Erro!',
+            message: 'Verifique os campos do tipo Icone',
+            type: 'error'
+          });
+          break;
+        }
+      }
+      return save;
+    }
+
     public async save(): Promise<void> {
       try {
         const canSave = await this.formPlataforma.checkCanSave();
@@ -105,6 +141,8 @@
           });
           return;
         }
+        const linksCanSave = this.checkLinks(); 
+        if (!linksCanSave) return;
         let response: any;
         if (this.slot === 1) {
           response = await this.$axios.post('/plataforma', this.model);
@@ -130,8 +168,14 @@
       }
     }
 
+
+    public setDefaultLinks(): void {
+      this.model.links = [...DefaultLinks];
+    }
+
     public add(): void {
       this.resetModel();
+      this.setDefaultLinks();
       this.up();
       this.slot = 1;
     }

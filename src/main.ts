@@ -21,6 +21,10 @@ new Vue({
   render: h => h(App)
 }).$mount('#app')
 
-// criar crud plataforma
+// remover warnings
+// filtro por link
+// ajustes de tela
 // responsividade
-// expirar token
+// remover campos do db
+// arrumar migrations
+// ajustes finais

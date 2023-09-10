@@ -4,7 +4,7 @@
       <el-row>
 
         <!-- Informações -->
-        <el-col :span="12" class=" pr-10px">
+        <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12" class=" pr-10px">
           <el-card :body-style="{ padding: '20px' }" class="mt-10px">
             <div slot="header" class="clearfix">
               <span class="cadastro-title">
@@ -22,7 +22,7 @@
         </el-col>
 
         <!-- Tipos -->
-        <el-col :span="12" class=" pl-10px">
+        <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12" class=" pl-10px">
           <el-card :body-style="{ padding: '20px' }" class="mt-10px">
             <div slot="header" class="clearfix">
               <span class="cadastro-title">
@@ -40,7 +40,7 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="Tipo Escalabilidade" class="bold">
+            <el-form-item label="Tipo Escalabilidade" prop="tipoEscalabilidade" class="bold">
               <el-select 
                 v-model="value.tipoEscalabilidade" 
                 placeholder="Select" 
@@ -74,7 +74,6 @@
               <el-input 
                 v-model="value.descricao"
                 type="textarea" 
-                :maxlength="100"
                 :autosize="{ minRows: 6, maxRows: 6}">
               </el-input>
             </el-form-item>
@@ -103,6 +102,20 @@
           </el-card>
         </el-col>
       </el-row>
+
+      <el-row class="pt-10px">
+        <el-col :span="24">
+          <el-card :body-style="{ padding: '20px' }" class="mt-10px">
+            <div slot="header" class="clearfix">
+              <span class="cadastro-title">
+                <font-awesome-icon class="mr-5px color-orange" icon="link"/>
+                Links
+              </span>
+            </div>
+            <FormLink v-model="value.links" />
+          </el-card>
+        </el-col>
+      </el-row>
     </el-form>
   </div>
 </template>
@@ -110,9 +123,11 @@
 <script lang="ts">
   import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
   import { TiposEscalabilidade, TipoMenu } from '../utils/enum';
+  import FormLink from './FormLink.vue';
 
   @Component({
     name: 'FormPlataforma',
+    components: {FormLink}
   })
 
   export default class FormPlataforma extends Vue {
@@ -144,6 +159,12 @@
         { 
           required: true, 
           message: 'Tipo Menu é obrigatório', 
+          trigger: ['blur', 'change'],
+        }
+      ],
+      tipoEscalabilidade: [
+        { 
+          validator: this.checkEscalabilidade,
           trigger: ['blur', 'change'],
         }
       ],
@@ -211,6 +232,16 @@
           idBlockchain: parseInt(element),
         })
       });
+    }
+
+    public checkEscalabilidade(rule: any, val: any, callback: any): any {
+      if (this.value.tipoMenu === 1 && !val) {
+        callback(new Error('Tipo escalabilidade inválido!'));
+      }
+      if (this.value.tipoMenu !== 1 && val) {
+        callback(new Error('Tipo escalabilidade inválido!'));
+      }
+      callback();
     }
 
     public async created(): Promise<any> {
