@@ -206,7 +206,7 @@
 .label {
   line-height: 24px;
   padding-bottom: 10px;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .btn-feedback {

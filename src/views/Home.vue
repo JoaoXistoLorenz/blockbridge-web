@@ -180,6 +180,8 @@
 
     public mounted(): any {
       this.loading = true;
+      this.tiposEscalabilidade = Object.entries(TiposEscalabilidade).map(([key, value]) => ({ key, value }));
+      this.blockchains = Object.entries(Blockchains).map(([key, value]) => ({ id: parseInt(key), nome: value }) as any );
       this.setPlataformas();
       this.loading = false;
     }

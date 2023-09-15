@@ -90,7 +90,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
+  import { Component, Prop, Vue } from 'vue-property-decorator';
 
   @Component({
     name: 'FormLink',
@@ -102,6 +102,7 @@
 
     public selectedRow: any = undefined;
 
+    // eslint-disable-next-line
     public resetValRow(row: any): void {
       if (row.tipo === 1) {
         row.icone = '';
@@ -124,6 +125,7 @@
       })
     }
 
+    // eslint-disable-next-line
     public del(index: any): void {
       this.value.splice(index, 1);
     }

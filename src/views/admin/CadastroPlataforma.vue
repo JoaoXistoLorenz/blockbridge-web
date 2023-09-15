@@ -170,7 +170,8 @@
 
 
     public setDefaultLinks(): void {
-      this.model.links = [...DefaultLinks];
+      this.model.links = JSON.parse(JSON.stringify(DefaultLinks));
+      this.$forceUpdate();
     }
 
     public add(): void {
@@ -180,6 +181,7 @@
       this.slot = 1;
     }
 
+    // eslint-disable-next-line
     public edt(row: any): void {
       this.model = {...row};
       this.model.tipoMenu = parseInt(row.tipoMenu.id);
@@ -188,6 +190,7 @@
       this.slot = 2;
     }
 
+    // eslint-disable-next-line
     public async del(row: any): Promise<void> {
       try {
         const response: any = await this.$axios.delete(`/plataforma/${row.id}`);

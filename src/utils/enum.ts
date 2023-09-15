@@ -1,14 +1,13 @@
 export const TiposEscalabilidade: any = {
-  1000: 'Todas',
   1: 'Ponte',
-  2: 'Plasma',
+  2: 'Sidechain',
   3: 'Rollup Otimista',
   4: 'Rollup ZK',
   5: 'Validium',
+  1000: 'Todas',
 } as const;
 
 export const Blockchains: any = {
-  1000: 'Todas', 
   1: 'Ethereum',
   2: 'Cronos', 
   3: 'Fantom',
@@ -21,6 +20,11 @@ export const Blockchains: any = {
   10: 'BNB',
   11: 'Avalanche',
   12: 'Cartesi',
+  13: 'Bitcoin',
+  14: 'Gnosis',
+  15: 'Near',
+  16: 'Tron',
+  1000: 'Todas',
 } as const;
 
 export const TipoMenu: any = {
@@ -297,6 +301,33 @@ export const DefaultLinks: any = [
     nome: 'Bubblemaps',
     tipo: 1,
     imagem: 'bubblemaps.png',
+    icone: '',
+    bg: '',
+    color: '',
+    url: '',
+  },
+  {
+    nome: 'TokenInsight',
+    tipo: 1,
+    imagem: 'tokeninsight.webp',
+    icone: '',
+    bg: '',
+    color: '',
+    url: '',
+  },
+  {
+    nome: 'Cyberscan',
+    tipo: 1,
+    imagem: 'cyber.png',
+    icone: '',
+    bg: '',
+    color: '',
+    url: '',
+  },
+  {
+    nome: 'Certfied',
+    tipo: 1,
+    imagem: 'certfied.png',
     icone: '',
     bg: '',
     color: '',

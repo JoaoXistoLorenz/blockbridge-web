@@ -15,15 +15,11 @@
 
         <!-- Blockchains -->
         <el-tooltip effect="light" placement="bottom">
-
-          <!-- Tooltip -->
           <template slot="content">
             <div v-for="b in plataforma.blockchains" :key="b.id" style="padding: 5px"> 
               {{ b.idBlockchain.nome }}
             </div>
           </template>
-          
-          <!-- Texto -->
           <span class="tipo-card-blockchains">
             <font-awesome-icon icon="layer-group"></font-awesome-icon>
             Blockchains <font-awesome-icon icon="chevron-down"></font-awesome-icon>

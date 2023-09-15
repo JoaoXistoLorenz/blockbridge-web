@@ -97,7 +97,7 @@
               <el-tag type="danger" style="width: 100%" class="bold pointer">
                 <font-awesome-icon icon="trash"/> 
                 Excluir
-              </el-tag>
+              </el-tag> 
             </template>
           </el-popconfirm>
         </template>
@@ -164,6 +164,7 @@
       }
     }
 
+    // eslint-disable-next-line
     public async deleteRow(row: any): Promise<void> {
       this.$emit('del', row);
     }

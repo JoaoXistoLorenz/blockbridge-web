@@ -88,7 +88,7 @@
       });
     }
 
-    public async created() {
+    public async created(): Promise<void> {
       this.resetForm();
       const token = await localStorage.getItem('token');
       if (token && token !== "") {

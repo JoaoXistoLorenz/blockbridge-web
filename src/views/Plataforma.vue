@@ -39,11 +39,27 @@
           </el-card>
         </el-col>
 
+        <!-- Explore a Tecnologia -->
+        <!-- <el-col :span="24" class="titulo center" style="margin-bottom: 60px; margin-top: 60px">
+          Obtenha mais informações!
+        </el-col> -->
+
+        <!-- Filtro -->
+        <el-col :span="24" style="padding-top: 10px">
+          <el-card :body-style="{ padding: '25px' }" class="ml-10px mr-10px">
+            <el-input placeholder="Filtre através do nome da plataforma!" v-model="inputProcurar" @input="procularSolucao()">
+              <el-button slot="prepend">
+                <font-awesome-icon icon="search" class="color-principal"/>
+              </el-button>
+            </el-input>
+          </el-card>
+        </el-col>
+
         <!-- Links -->
         <el-col :span="24">
           <el-card class="card-plataforma-under" :body-style="{ padding: '15px' }">
             <el-row>
-              <el-col v-for="link in model.links" :key="link.id" :xs="24" :sm="12" :md="6" :lg="4" :xl="4">
+              <el-col v-for="link in links" :key="link.id" :xs="24" :sm="12" :md="6" :lg="4" :xl="4">
                 <Link :link="link"/>
               </el-col>
             </el-row>
@@ -52,7 +68,7 @@
 
         <!-- Tecnologia Semelhante -->
         <el-col v-if="plataformas.length > 0" :span="24" class="titulo center plataforma-pt-60px">
-          Encontre outra tecnologia semelheante!
+          Encontre outra tecnologia!
         </el-col>
 
         <!-- Outras tecnologias -->
@@ -95,6 +111,8 @@
   export default class Plataforma extends Vue {
     public plataformas: any = [];
     public model: any = {};
+    public links: any = [];
+    public inputProcurar = '';
 
     public imageUrl(img: string): any {
       return  require(`@/assets/${img}`);
@@ -142,6 +160,7 @@
     public async loadingPage(): Promise<any> {
       await this.setModel();
       await this.setPlataformas();
+      this.procularSolucao();
     }
 
     public async atualizaPlataforma(id: number): Promise<any> {
@@ -156,6 +175,14 @@
 
     public setPlataformaValue(): boolean { 
       return true;
+    }
+
+    public procularSolucao(): void {
+      if (this.inputProcurar !== '') {
+        this.links = this.model.links.filter((item: any) => item.nome.toUpperCase().includes(this.inputProcurar.toUpperCase()));
+      } else {
+        this.links = [...this.model.links];
+      }
     }
 
     public async created(): Promise<any> {

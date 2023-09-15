@@ -20,11 +20,6 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
-
-// remover warnings
-// filtro por link
 // ajustes de tela
 // responsividade
-// remover campos do db
-// arrumar migrations
-// ajustes finais
+// login erro 

@@ -127,7 +127,7 @@
 
   @Component({
     name: 'FormPlataforma',
-    components: {FormLink}
+    components: {FormLink} 
   })
 
   export default class FormPlataforma extends Vue {
@@ -182,7 +182,7 @@
     }
 
     public findTipoEscalabilidade(): any {
-      const aux = TiposEscalabilidade;
+      const aux = JSON.parse(JSON.stringify(TiposEscalabilidade));
       delete aux[1000];
       return aux;
     }
@@ -234,6 +234,7 @@
       });
     }
 
+    // eslint-disable-next-line
     public checkEscalabilidade(rule: any, val: any, callback: any): any {
       if (this.value.tipoMenu === 1 && !val) {
         callback(new Error('Tipo escalabilidade inválido!'));
