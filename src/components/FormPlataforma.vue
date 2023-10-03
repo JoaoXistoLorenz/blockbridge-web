@@ -18,6 +18,12 @@
             <el-form-item label="Imagem da plataforma" class="bold" prop="imagem">
               <el-input v-model="value.imagem"></el-input>
             </el-form-item>
+            <el-form-item label="ID Coinmarketcap" class="bold" prop="idcoinmarketcap">
+              <el-input v-model="value.idcoinmarketcap"></el-input>
+            </el-form-item>
+            <el-form-item label="Tradingview" class="bold" prop="simbolotrading">
+              <el-input v-model="value.simbolotrading"></el-input>
+            </el-form-item>
           </el-card>
         </el-col>
 
@@ -27,7 +33,7 @@
             <div slot="header" class="clearfix">
               <span class="cadastro-title">
                 <font-awesome-icon class="mr-5px color-orange" icon="server"/>
-                Tipos da Plataforma
+                Outras Informações
               </span>
             </div>
             <el-form-item label="Tipo Menu" prop="tipoMenu" class="bold">
@@ -55,6 +61,9 @@
                   :value="parseInt(id)">
                 </el-option>
               </el-select>
+            </el-form-item>
+            <el-form-item label="Crypto Panic" class="bold" prop="cryptopanic">
+              <el-input v-model="value.cryptopanic"></el-input>
             </el-form-item>
           </el-card>
         </el-col>

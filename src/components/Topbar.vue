@@ -25,6 +25,7 @@
           NFTs
         </span>
 
+
         <!-- Botão -->
         <el-button class="btn-destaque" @click="goToNovaSolucao()"> 
           Informe outra solução
