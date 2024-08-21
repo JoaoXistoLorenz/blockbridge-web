@@ -65,6 +65,9 @@
             <el-form-item label="Crypto Panic" class="bold" prop="cryptopanic">
               <el-input v-model="value.cryptopanic"></el-input>
             </el-form-item>
+            <el-form-item label="Valor Bloqueado" class="bold" prop="tvl">
+              <el-input v-model="value.tvl"></el-input>
+            </el-form-item>
           </el-card>
         </el-col>
       </el-row>

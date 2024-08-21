@@ -6,7 +6,7 @@ export const mainApiUrl = process.env.NODE_ENV === 'development' ? '' : 'MAIN_AP
 // Full config:  https://github.com/axios/axios#request-config
 const config = {
   /* baseURL: 'http://localhost:3000', */
-  baseURL: 'https://192.168.1.5:3000',
+  baseURL: 'https://192.168.1.9:3000',
   timeout: 60 * 1000,
   withCredentials: false,
   port: 3000,

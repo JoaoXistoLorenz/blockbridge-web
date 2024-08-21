@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <el-row>
     <div v-html="src"></div>
-  </div>
+  </el-row>
 </template>
 
 <script lang="ts">

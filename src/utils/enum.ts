@@ -4,6 +4,8 @@ export const TiposEscalabilidade: any = {
   3: 'Rollup Otimista',
   4: 'Rollup ZK',
   5: 'Validium',
+  6: 'Plasma',
+  7: 'State Channel',
   1000: 'Todas',
 } as const;
 

@@ -1,6 +1,6 @@
 <template>
   <el-row class="m-0px">
-    <el-col :span="10" :offset="7">
+    <el-col :span="8" :offset="8">
       <el-card class="login-card" border="none">
 
         <!-- Imagem -->
@@ -37,7 +37,7 @@
 
           <!-- Botão -->
           <el-row class="center">
-            <el-button class="login-btn" @click="enviarForm(formValue.urlsite)" native-type="submit">
+            <el-button class="login-btn" @click="enviarForm(formValue.urlsite)">
               Entrar
               <font-awesome-icon icon="arrow-up-right-from-square" class="ml-5px"></font-awesome-icon>
             </el-button>

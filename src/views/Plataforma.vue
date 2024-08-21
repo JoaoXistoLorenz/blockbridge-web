@@ -42,24 +42,17 @@
           </el-col>
         </el-row>
 
-        <el-row>
+        <!-- TVL -->
+        <el-row v-if="model.tvl">
           <el-col :span="24" class="p-10px">
             <el-card :body-style="{ padding: '20px' }" >
               <div style="border: 1px solid #D9DADB; background: #F5F7FA" class="title-card">
                 <div class="mb-20px mt-20px center">Valor Total Bloqueado!</div>
-                <iframe width="100%" height="360px" src="https://defillama.com/chart/chain/Arbitrum?" title="DefiLlama" frameborder="0"></iframe>
+                <div v-html="model.tvl"></div>
               </div>
             </el-card>
           </el-col>
         </el-row>
-
-        <!-- <el-col :span="24" class="p-10px">
-          <el-card :body-style="{ padding: '20px' }">
-            <div style="border: 1px solid #D9DADB">
-              <iframe width="100%" height="1200" src="https://tokenterminal.com/terminal/projects/arbitrum/embed/key-metrics" frameborder="0" title="Token Terminal"></iframe>
-            </div>
-          </el-card>
-        </el-col> -->
 
         <!-- Explore a Tecnologia -->
         <el-row class="titulo center" style="margin-bottom: 60px; margin-top: 60px">
@@ -93,18 +86,21 @@
         </el-row>
         
         <!-- Crypto panic -->
-        <el-col v-if="model.cryptopanic" :span="24" style="margin-bottom: 60px;">
-          <el-card class="card-plataforma-under" :body-style="{ padding: '15px' }">
-            <el-row>
-              <CryptoPanic :src="model.cryptopanic"/>
-            </el-row>
-          </el-card>
-        </el-col>
-
-        <el-row v-if="model.idcoinmarketcap" class="titulo center" style="margin-bottom: 60px; margin-top: 60px">
-          Informações sobre o token!
+        <el-row v-if="model.cryptopanic">
+          <el-col :span="24" style="margin-bottom: 60px;">
+            <el-card class="card-plataforma-under" :body-style="{ padding: '15px' }">
+              <el-row>
+                <CryptoPanic :src="model.cryptopanic"/>
+              </el-row>
+            </el-card>
+          </el-col>
         </el-row>
 
+
+        <!-- token -->
+        <el-row v-if="model.idcoinmarketcap" class="titulo center" style="margin-bottom: 60px; margin-top: 10px">
+          Informações sobre o token!
+        </el-row>
         <el-row v-if="model.idcoinmarketcap">
           <el-col :span="24" class="p-10px">
             <el-card v-if="model.idcoinmarketcap" :body-style="{ padding: '25px' }">
@@ -112,12 +108,48 @@
             </el-card>
           </el-col>
         </el-row>
-        
         <el-row v-if="model.simbolotrading" >
           <el-col :span="24" class="p-10px" >
             <el-card :body-style="{ padding: '20px' }">
               <TradingViewWidget :simbolo="model.simbolotrading"/>
             </el-card>
+          </el-col>
+        </el-row>
+
+        
+        <!-- <el-row v-if="model.nome && parseInt(model.tipoEscalabilidade.id) !== 7" class="titulo center" style="margin-bottom: 60px; margin-top: 60px">
+          Como está o interesse no tema?
+        </el-row>
+        <el-row v-if="model.nome && parseInt(model.tipoEscalabilidade.id) !== 7">
+          <el-col :span="24" class="p-10px">
+            <el-card v-if=" model.nome" :body-style="{ padding: '25px' }">
+              <el-col :sm="24" :md="24" :lg="24">
+                <GoogleTrendsIframe :keyword="model.nome" style="height: 450px"/>
+              </el-col>
+              <el-col :sm="24" :md="12" :lg="12">
+                <GoogleTrendsGeoMap :keyword="model.nome" style="height: 450px"/>
+              </el-col>
+              <el-col :sm="24" :md="12" :lg="12">
+                <GoogleTrendsRelatedTopics :keyword="model.nome" style="height: 450px; padding-top: 40px"/>
+              </el-col>
+            </el-card>
+          </el-col>
+        </el-row> -->
+        
+
+        <!-- Técnica de escalabilidade -->
+        <el-row v-if="model.tipoEscalabilidade.id" class="titulo center" style="margin-bottom: 60px; margin-top: 60px">
+          Informações Sobre {{ findTipoEscalabilidade(parseInt(model.tipoEscalabilidade.id))}}!
+        </el-row>
+        <el-row v-if="model.tipoEscalabilidade.id">
+          <el-col :span="24" class="p-10px">
+            <Pontes v-if="parseInt(model.tipoEscalabilidade.id) === 1"/>
+            <Sidechain v-if="parseInt(model.tipoEscalabilidade.id) === 2"/>
+            <RollupOtimista v-if="parseInt(model.tipoEscalabilidade.id) === 3"/>
+            <RollupZK v-if="parseInt(model.tipoEscalabilidade.id) === 4"/>
+            <Validium v-if="parseInt(model.tipoEscalabilidade.id) === 5"/>
+            <Plasma v-if="parseInt(model.tipoEscalabilidade.id) === 6"/>
+            <StateChannel v-if="parseInt(model.tipoEscalabilidade.id) === 7"/>
           </el-col>
         </el-row>
 
@@ -178,12 +210,42 @@
   import Link from '../components/Link.vue';
   import Metricas from '../components/Metricas.vue';
   import TradingViewWidget from '../components/TradingViewWidget.vue';
+  import GoogleTrendsIframe from '../components/GoogleTrendsIframe.vue';
+  import GoogleTrendsGeoMap from '../components/GoogleTrendsGeoMap.vue';
+  import GoogleTrendsRelatedTopics from '../components/GoogleTrendsRelatedTopics.vue';
   import CryptoPanic from '../components/CryptoPanic.vue';
+  import RollupOtimista from '../components/escalabilidade/RollupOtimista.vue';
+  import RollupZK from '../components/escalabilidade/RollupZK.vue';
+  import Plasma from '../components/escalabilidade/Plasma.vue';
+  import Sidechain from '../components/escalabilidade/Sidechain.vue';
+  import Pontes from '../components/escalabilidade/Pontes.vue';
+  import StateChannel from '../components/escalabilidade/StateChannel.vue';
+  import Validium from '../components/escalabilidade/Validium.vue';
   import { TiposEscalabilidade, TipoMenu } from '../utils/enum';
 
   @Component({
     name: 'Plataforma',
-    components: {Topbar, CardPrincipal, BackTop, SemDados, Areas, Link, Metricas, TradingViewWidget, CryptoPanic}
+    components: {
+      Topbar, 
+      CardPrincipal, 
+      BackTop, 
+      SemDados, 
+      Areas, 
+      Link, 
+      Metricas, 
+      TradingViewWidget, 
+      CryptoPanic, 
+      RollupOtimista,
+      RollupZK,
+      Plasma,
+      Sidechain,
+      Pontes,
+      StateChannel,
+      Validium,
+      GoogleTrendsIframe,
+      GoogleTrendsGeoMap,
+      GoogleTrendsRelatedTopics,
+    }
   })
 
   export default class Plataforma extends Vue {
