@@ -978,3 +978,42 @@ body {
     }
   }
 }
+
+/* ============================================================== */
+/* ALERTA */
+/* ============================================================== */
+
+.el-dialog__header {
+  background-color: #f0f4f8;
+  font-size: 24px; /* Título maior e destacado */
+  font-weight: bold;
+  color: #333;
+  padding: 16px 24px;
+  text-align: center;
+}
+
+.el-dialog__body {
+  font-size: 18px; /* Texto principal legível e grande */
+  line-height: 1.6; /* Melhor espaçamento entre linhas */
+  color: #555;
+  padding: 24px;
+  background-color: #fff;
+  hyphens: auto; /* Ativa a hifenização automática */
+  word-wrap: break-word; /* Garante que palavras longas sejam quebradas */
+}
+
+.el-dialog__body p {
+  margin-bottom: 16px; /* Separação clara entre parágrafos */
+  word-break: break-word;
+}
+
+.el-dialog {
+  width: 40%;
+  word-break: break-word; /* Quebra palavras longas para evitar estouro */
+}
+
+.el-dialog__footer {
+  text-align: right;
+  padding: 12px 24px;
+  background-color: #f0f4f8;
+}

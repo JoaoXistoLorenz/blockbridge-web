@@ -6,6 +6,6 @@ module.exports = {
           key: fs.readFileSync('./cert/certificate.key'),
           cert: fs.readFileSync('./cert/certificate.crt'),
         },
-        public: 'https://192.168.1.9:8080/'
+        public: `${process.env.VUE_APP_BASE_URL}`
     }
 }

@@ -96,6 +96,17 @@
         <!-- Sem dados -->
         <SemDados v-else class="sem-dados"/>
       </el-row>
+
+      <el-dialog
+        title="Atenção!"
+        :visible.sync="dialogVisible"
+        width="40%">
+        <p>Informamos que a plataforma está em fase de teste aberto. Durante este período, não nos responsabilizamos por perdas de ativos digitais, informações incorretas ou links inválidos.</p>
+        <p>Recomendamos cautela ao utilizar a plataforma e agradecemos sua compreensão e colaboração neste processo de melhoria contínua.</p>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="dialogVisible = false" class="scalability-btn-ativo">Fechar</el-button>
+        </span>
+      </el-dialog>
     </el-main>
   </el-row>
 </template>
@@ -115,6 +126,7 @@
   })
 
   export default class Home extends Vue {
+    public dialogVisible = false;
     public loading = true;
     public inputProcurar = '';
     public inputBlockchain = 1000;
@@ -178,11 +190,22 @@
       this.filtrarPorBlockchain();
     }
 
+    public checkDialog(): void {
+      const hasSeenDialog = sessionStorage.getItem('hasSeenDialog');
+      if (!hasSeenDialog) {
+        this.dialogVisible = true; // Exibe o diálogo na primeira vez em cada aba
+        sessionStorage.setItem('hasSeenDialog', 'true'); // Salva no sessionStorage para não exibir novamente na mesma aba
+      } else {
+        this.dialogVisible = false; // Não exibe o diálogo se já tiver sido mostrado nesta aba
+      }
+    }
+
     public mounted(): any {
       this.loading = true;
       this.tiposEscalabilidade = Object.entries(TiposEscalabilidade).map(([key, value]) => ({ key, value }));
       this.blockchains = Object.entries(Blockchains).map(([key, value]) => ({ id: parseInt(key), nome: value }) as any );
       this.setPlataformas();
+      this.checkDialog();
       this.loading = false;
     }
   }

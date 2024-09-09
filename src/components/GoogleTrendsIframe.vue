@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: "GoogleTrendsIframe",
   props: {
@@ -13,24 +13,26 @@ export default {
       required: true,
     },
   },
-  mounted() {
+  mounted(): void {
     this.createIframeContent();
   },
   methods: {
-    createIframeContent() {
-      const iframe = this.$refs.iframe;
-      const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+    createIframeContent(): void {
+      const iframe = this.$refs.iframe as HTMLIFrameElement;
+      const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+
+      if (!iframeDoc) {
+        console.error("Não foi possível acessar o documento do iframe.");
+        return;
+      }
 
       const scriptLoader = iframeDoc.createElement("script");
-      scriptLoader.src = "https://ssl.gstatic.com/trends_nrtr/3815_RC01/embed_loader.js";
-      iframeDoc.head.appendChild(scriptLoader);
-
-      // Adiciona tratamento de erro aqui
-      scriptLoader.onerror = () => {
-        console.error("Falha ao carregar o script do Google Trend.");
-      };
-
+      scriptLoader.src = "https://ssl.gstatic.com/trends_nrtr/3826_RC01/embed_loader.js";
+      scriptLoader.async = true;
+      
       scriptLoader.onload = () => {
+        console.log("Google Trends script loaded successfully.");
+
         const scriptContent = iframeDoc.createElement("script");
         scriptContent.type = "text/javascript";
         scriptContent.innerHTML = `
@@ -50,7 +52,19 @@ export default {
           );
         `;
         iframeDoc.body.appendChild(scriptContent);
+
+        setTimeout(() => {
+          if (!iframeDoc.body.innerHTML.includes("trends.embed.renderExploreWidget")) {
+            console.warn("Google Trends content did not load correctly.");
+          }
+        }, 3000);
       };
+
+      scriptLoader.onerror = () => {
+        console.error("Failed to load Google Trends script.");
+      };
+
+      iframeDoc.head.appendChild(scriptLoader);
     },
   },
 };
@@ -59,7 +73,7 @@ export default {
 <style scoped>
 .iframe-container {
   width: 100%;
-  height: 100%; /* ajuste conforme necessário */
+  height: 450px;
 }
 
 .trends-iframe {

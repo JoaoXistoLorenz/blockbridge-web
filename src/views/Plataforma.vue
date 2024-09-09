@@ -96,7 +96,6 @@
           </el-col>
         </el-row>
 
-
         <!-- token -->
         <el-row v-if="model.idcoinmarketcap" class="titulo center" style="margin-bottom: 60px; margin-top: 10px">
           Informações sobre o token!
@@ -116,27 +115,6 @@
           </el-col>
         </el-row>
 
-        
-        <!-- <el-row v-if="model.nome && parseInt(model.tipoEscalabilidade.id) !== 7" class="titulo center" style="margin-bottom: 60px; margin-top: 60px">
-          Como está o interesse no tema?
-        </el-row>
-        <el-row v-if="model.nome && parseInt(model.tipoEscalabilidade.id) !== 7">
-          <el-col :span="24" class="p-10px">
-            <el-card v-if=" model.nome" :body-style="{ padding: '25px' }">
-              <el-col :sm="24" :md="24" :lg="24">
-                <GoogleTrendsIframe :keyword="model.nome" style="height: 450px"/>
-              </el-col>
-              <el-col :sm="24" :md="12" :lg="12">
-                <GoogleTrendsGeoMap :keyword="model.nome" style="height: 450px"/>
-              </el-col>
-              <el-col :sm="24" :md="12" :lg="12">
-                <GoogleTrendsRelatedTopics :keyword="model.nome" style="height: 450px; padding-top: 40px"/>
-              </el-col>
-            </el-card>
-          </el-col>
-        </el-row> -->
-        
-
         <!-- Técnica de escalabilidade -->
         <el-row v-if="model.tipoEscalabilidade.id" class="titulo center" style="margin-bottom: 60px; margin-top: 60px">
           Informações Sobre {{ findTipoEscalabilidade(parseInt(model.tipoEscalabilidade.id))}}!
@@ -153,6 +131,7 @@
           </el-col>
         </el-row>
 
+        <!-- Métricas de escalabilidade -->
         <el-row class="titulo center" style="margin-bottom: 60px; margin-top: 60px">
           Principais métricas de escalabilidade!
         </el-row>
@@ -210,9 +189,6 @@
   import Link from '../components/Link.vue';
   import Metricas from '../components/Metricas.vue';
   import TradingViewWidget from '../components/TradingViewWidget.vue';
-  import GoogleTrendsIframe from '../components/GoogleTrendsIframe.vue';
-  import GoogleTrendsGeoMap from '../components/GoogleTrendsGeoMap.vue';
-  import GoogleTrendsRelatedTopics from '../components/GoogleTrendsRelatedTopics.vue';
   import CryptoPanic from '../components/CryptoPanic.vue';
   import RollupOtimista from '../components/escalabilidade/RollupOtimista.vue';
   import RollupZK from '../components/escalabilidade/RollupZK.vue';
@@ -242,9 +218,6 @@
       Pontes,
       StateChannel,
       Validium,
-      GoogleTrendsIframe,
-      GoogleTrendsGeoMap,
-      GoogleTrendsRelatedTopics,
     }
   })
 

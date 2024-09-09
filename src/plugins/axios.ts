@@ -1,12 +1,10 @@
 import Vue, { PluginObject } from 'vue';
 import axios from 'axios';
 import router from '../router';
-export const mainApiUrl = process.env.NODE_ENV === 'development' ? '' : 'MAIN_API_URL';
 
 // Full config:  https://github.com/axios/axios#request-config
 const config = {
-  /* baseURL: 'http://localhost:3000', */
-  baseURL: 'https://192.168.1.9:3000',
+  baseURL: `${process.env.VUE_APP_BASE_API}`,
   timeout: 60 * 1000,
   withCredentials: false,
   port: 3000,
